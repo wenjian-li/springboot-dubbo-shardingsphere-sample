@@ -1,0 +1,13 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+    <dubbo:application name="sample-provider"/>
+    <dubbo:registry protocol="multicast" address="224.5.6.7:1234"/>
+    <dubbo:protocol name="dubbo" port="-1"/>
+
+
+    <dubbo:service interface="com.sample.lwj.remote.service.IUserServiceRemote" ref="userServiceRemote"/>
+    <dubbo:service interface="com.sample.lwj.remote.service.IOrderServiceRemote" ref="orderServiceRemote"/>
+</beans>
