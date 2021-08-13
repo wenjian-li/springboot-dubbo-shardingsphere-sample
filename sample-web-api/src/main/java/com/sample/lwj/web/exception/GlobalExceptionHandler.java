@@ -1,5 +1,6 @@
-package com.sample.lwj.web.config;
+package com.sample.lwj.web.exception;
 
+import com.sample.lwj.web.config.AppException;
 import com.sample.lwj.web.utils.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,5 +27,13 @@ public class GlobalExceptionHandler {
     public ResultData globalException(Exception e) {
         logger.error(e.getMessage(), e);
         return ResultData.error();
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({AppException.class})
+    public ResultData appException(AppException e) {
+        logger.error(e.getMessage(), e);
+        return ResultData.fail(e.getCode(), e.getMsg());
     }
 }

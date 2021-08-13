@@ -1,21 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sample.lwj.mapper.UserMapper">
-    <resultMap id="BaseResultMap" type="com.sample.lwj.entity.User">
-        <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        id, username, password, create_time, update_time
-    </sql>
 
+    <resultMap id="BaseResultMap" type="com.sample.lwj.entity.User">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,username,password,
+        role_id,create_time,update_time
+    </sql>
     <select id="select" resultMap="BaseResultMap" parameterType="com.sample.lwj.entity.User">
         select
         <include refid="Base_Column_List"/>
-        from T_USER
+        from t_user
         <where>
             <if test="username != null">
                 INSTR(username,#{username,jdbcType=VARCHAR})
@@ -29,7 +34,7 @@
     <select id="selectByDateRange" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from T_USER
+        from t_user
         <where>
             <if test="start != null and end != null">
                 create_time between #{start,jdbcType=TIMESTAMP} and #{end,jdbcType=TIMESTAMP}
@@ -39,7 +44,7 @@
     <select id="selectByDate" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from T_USER
+        from t_user
         <where>
             <if test="date != null">
                 create_time = #{date,jdbcType=TIMESTAMP}

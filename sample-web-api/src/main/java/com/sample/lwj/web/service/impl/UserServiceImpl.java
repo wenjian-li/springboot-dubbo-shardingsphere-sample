@@ -1,13 +1,18 @@
 package com.sample.lwj.web.service.impl;
 
 import com.sample.lwj.remote.dto.UserDTO;
+import com.sample.lwj.remote.service.IMenuServiceRemote;
 import com.sample.lwj.remote.vo.UserVO;
+import com.sample.lwj.web.config.AppException;
+import com.sample.lwj.web.service.ITokenService;
 import com.sample.lwj.web.service.IUserService;
 import com.sample.lwj.remote.service.IUserServiceRemote;
 import com.sample.lwj.web.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +21,12 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IUserServiceRemote userServiceRemote;
+
+    @Autowired
+    private IMenuServiceRemote menuServiceRemote;
+
+    @Autowired
+    private ITokenService tokenService;
 
     @Override
     public UserVO selectByPrimaryKey(Long id) {
@@ -35,5 +46,24 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<UserVO> selectByDate(Date date) {
         return BeanUtils.toList(userServiceRemote.selectByDate(date), UserVO.class);
+    }
+    @Override
+    public String login(String username, String password) {
+        UserDTO userDTO = userServiceRemote.selectByUsername(username);
+        if (userDTO == null) {
+            throw new AppException("账号或密码错误");
+        }
+        boolean validate = DigestUtils.md5DigestAsHex(password.trim().getBytes(StandardCharsets.UTF_8)).equals(userDTO.getPassword());
+        if (!validate) {
+            throw new AppException("账号或密码错误");
+        }
+        List<String> permissions = menuServiceRemote.selectPermissionsByRoleId(userDTO.getRoleId());
+        userDTO.setPermissions(permissions);
+        return tokenService.createToken(userDTO);
+    }
+
+    @Override
+    public void logout(String token) {
+        tokenService.invalidateToken(token);
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Api(tags = "订单模块")
 @RestController
-@RequestMapping(value = "/order")
+@RequestMapping(value = "/api/order")
 public class OrderController {
 
     @Autowired

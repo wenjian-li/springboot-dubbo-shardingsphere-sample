@@ -10,6 +10,11 @@ import java.io.Serializable;
  */
 public class ResultData<T> implements Serializable {
 
+    public static final Integer SUCCESS_CODE = 0;
+    public static final String SUCCESS_MSG = "success";
+    public static final Integer ERROR_CODE = 500;
+    public static final String ERROR_MSG = "系统繁忙，请稍后重试。";
+
     /**
      * 状态码
      */
@@ -48,8 +53,8 @@ public class ResultData<T> implements Serializable {
     }
 
     public ResultData() {
-        this.code = CodeEnum.SUCCESS.getCode();
-        this.msg = CodeEnum.SUCCESS.getMsg();
+        this.code = SUCCESS_CODE;
+        this.msg = SUCCESS_MSG;
     }
 
     /**
@@ -69,7 +74,7 @@ public class ResultData<T> implements Serializable {
      * @return
      */
     public static <T> ResultData success(T data) {
-        return result(CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg(), data);
+        return result(SUCCESS_CODE, SUCCESS_MSG, data);
     }
 
     /**
@@ -78,29 +83,8 @@ public class ResultData<T> implements Serializable {
      * @return 异常提示
      */
     public static ResultData error() {
-        return result(CodeEnum.ERROR.getCode(), CodeEnum.ERROR.getMsg(), null);
+        return result(ERROR_CODE, ERROR_MSG, null);
     }
-
-    /**
-     * 异常提示
-     *
-     * @return 异常提示
-     */
-    public static ResultData error(String msg) {
-        return result(CodeEnum.ERROR.getCode(), msg, null);
-    }
-
-
-    /**
-     * 失败提示
-     *
-     * @param <T>  泛型返回值
-     * @return
-     */
-    public static <T> ResultData failure(String msg) {
-        return result(CodeEnum.FAIL.getCode(), msg, null);
-    }
-
 
     /**
      * 失败提示（带返回数据）
@@ -109,7 +93,7 @@ public class ResultData<T> implements Serializable {
      * @param <T>  泛型返回值
      * @return
      */
-    public static <T> ResultData failure(Integer code, String msg) {
+    public static <T> ResultData fail(Integer code, String msg) {
         return result(code, msg, null);
     }
 
@@ -121,7 +105,7 @@ public class ResultData<T> implements Serializable {
      * @param <T>  泛型返回值
      * @return
      */
-    public static <T> ResultData failure(Integer code, String msg, T data) {
+    public static <T> ResultData fail(Integer code, String msg, T data) {
         return result(code, msg, data);
     }
 

@@ -1,6 +1,8 @@
 package com.sample.lwj.web.api.controller;
 
 import com.sample.lwj.remote.vo.UserVO;
+import com.sample.lwj.web.aop.Logical;
+import com.sample.lwj.web.aop.RequiresPermissions;
 import com.sample.lwj.web.service.IUserService;
 import com.sample.lwj.web.utils.DateUtils;
 import com.sample.lwj.web.utils.ResultData;
@@ -18,12 +20,13 @@ import java.util.List;
 
 @Api(tags = "用户模块")
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/api/user")
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
+    @RequiresPermissions("user:info")
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
     @ResponseBody
     public UserVO getUserInfo(@RequestParam(name = "id") Long id) {
@@ -70,6 +73,7 @@ public class UserController {
      * @param end   结束时间
      * @return
      */
+    @RequiresPermissions(value = {"user:list", "user:info"}, logical = Logical.OR)
     @ApiOperation(value = "根据时间范围查询用户列表")
     @RequestMapping(value = "/selectByDateRange", method = RequestMethod.GET)
     @ResponseBody

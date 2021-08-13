@@ -1,85 +1,43 @@
-
 package com.sample.lwj.web.api.controller;
 
-
-import com.google.code.kaptcha.Constants;
-import com.google.code.kaptcha.Producer;
+import com.sample.lwj.web.service.IUserService;
 import com.sample.lwj.web.utils.ResultData;
-import com.sample.lwj.web.utils.ShiroUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.subject.Subject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 登录模块
+ * @author vincent.li
+ * @version 1.0.0
+ * @Description: 登录模块
+ * @date 2021/8/9 16:51
  */
-@Controller
-public class LoginController {
+@Api(tags = "登录模块")
+@RestController
+@RequestMapping("/api")
+public class LoginController extends BaseController {
+
 
     @Autowired
-    private Producer producer;
+    private IUserService userService;
 
-    @RequestMapping("captcha.jpg")
-    public void captcha(HttpServletResponse response) throws IOException {
-        response.setHeader("Cache-Control", "no-store, no-cache");
-        response.setContentType("image/jpeg");
+    @PostMapping("/login")
+    @ApiOperation("登录")
+    public ResultData login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
 
-        //生成文字验证码
-        String text = producer.createText();
-        //生成图片验证码
-        BufferedImage image = producer.createImage(text);
-        //保存到shiro session
-        ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        String token = userService.login(username, password);
 
-        ServletOutputStream out = response.getOutputStream();
-        ImageIO.write(image, "jpg", out);
+        return ResultData.success(token);
     }
 
-    /**
-     * 登录
-     */
-    @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResultData login(String username, String password, String captcha) {
-        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-        if (!captcha.equalsIgnoreCase(kaptcha)) {
-            return ResultData.failure("验证码不正确");
-        }
-
-        try {
-            Subject subject = ShiroUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-            subject.login(token);
-        } catch (UnknownAccountException e) {
-            return ResultData.failure(e.getMessage());
-        } catch (IncorrectCredentialsException e) {
-            return ResultData.failure("账号或密码不正确");
-        } catch (LockedAccountException e) {
-            return ResultData.failure("账号已被锁定,请联系管理员");
-        } catch (AuthenticationException e) {
-            return ResultData.failure("账户验证失败");
-        }
-
-        return ResultData.success();
-    }
-
-    /**
-     * 退出
-     */
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @PostMapping("logout")
+    @ApiOperation("登出")
     public ResultData logout() {
-        ShiroUtils.logout();
+        userService.logout(getCurrentToken());
         return ResultData.success();
     }
-
 }

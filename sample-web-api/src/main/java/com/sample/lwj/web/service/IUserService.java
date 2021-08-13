@@ -16,4 +16,8 @@ public interface IUserService {
 
     List<UserVO> selectByDate(Date date);
 
+    String login(String username, String password);
+
+    void logout(String currentToken);
+
 }

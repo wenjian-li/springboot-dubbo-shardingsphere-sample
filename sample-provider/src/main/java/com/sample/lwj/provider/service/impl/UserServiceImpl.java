@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-@Service(value = "userService")
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+/**
+ *
+ */
+@Service
+public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+        implements IUserService {
 
     @Override
     public List<User> select(User user) {
@@ -32,5 +36,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User selectByUsername(String username) {
         return baseMapper.selectOne(new QueryWrapper<User>().eq("username", username));
     }
-
 }
+
+
+
+

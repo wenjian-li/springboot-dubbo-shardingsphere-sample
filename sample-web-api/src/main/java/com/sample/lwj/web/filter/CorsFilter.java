@@ -1,4 +1,4 @@
-package com.sample.lwj.web.config.filter;
+package com.sample.lwj.web.filter;
 
 import org.springframework.stereotype.Component;
 
