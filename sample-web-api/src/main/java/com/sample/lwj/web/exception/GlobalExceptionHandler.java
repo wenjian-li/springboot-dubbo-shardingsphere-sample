@@ -1,6 +1,5 @@
 package com.sample.lwj.web.exception;
 
-import com.sample.lwj.web.config.AppException;
 import com.sample.lwj.web.utils.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

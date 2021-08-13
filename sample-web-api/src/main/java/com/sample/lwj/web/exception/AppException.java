@@ -1,4 +1,4 @@
-package com.sample.lwj.web.config;
+package com.sample.lwj.web.exception;
 
 /**
  * @author vincent.li
