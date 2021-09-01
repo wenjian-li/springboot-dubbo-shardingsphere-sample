@@ -1,6 +1,6 @@
 package com.sample.lwj.web.interceptor;
 
-import com.sample.lwj.web.exception.AppException;
+import com.sample.lwj.remote.exception.AppException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

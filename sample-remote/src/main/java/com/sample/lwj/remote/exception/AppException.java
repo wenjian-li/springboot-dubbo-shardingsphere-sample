@@ -1,4 +1,4 @@
-package com.sample.lwj.web.exception;
+package com.sample.lwj.remote.exception;
 
 /**
  * @author vincent.li
@@ -21,6 +21,11 @@ public class AppException extends RuntimeException {
     public AppException(int code, String msg) {
         super(msg);
         this.code = code;
+        this.msg = msg;
+    }
+
+    public AppException(String msg, Throwable e) {
+        super(msg, e);
         this.msg = msg;
     }
 

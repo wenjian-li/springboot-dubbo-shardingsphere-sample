@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.lwj.mapper.ScheduleJobMapper">
+
+    <resultMap id="BaseResultMap" type="com.sample.lwj.entity.ScheduleJob">
+            <id property="jobId" column="JOB_ID" jdbcType="DECIMAL"/>
+            <result property="beanName" column="BEAN_NAME" jdbcType="VARCHAR"/>
+            <result property="params" column="PARAMS" jdbcType="VARCHAR"/>
+            <result property="cronExpression" column="CRON_EXPRESSION" jdbcType="VARCHAR"/>
+            <result property="status" column="STATUS" jdbcType="DECIMAL"/>
+            <result property="remark" column="REMARK" jdbcType="VARCHAR"/>
+            <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        JOB_ID,BEAN_NAME,PARAMS,
+        CRON_EXPRESSION,STATUS,REMARK,
+        CREATE_TIME
+    </sql>
+
+    <!-- 批量更新状态 -->
+    <update id="updateBatch">
+        update T_SCHEDULE_JOB set status = #{status} where job_id in
+        <foreach item="jobId" collection="list"  open="(" separator="," close=")">
+            #{jobId}
+        </foreach>
+    </update>
+
+</mapper>

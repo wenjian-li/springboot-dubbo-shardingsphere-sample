@@ -1,9 +1,9 @@
 package com.sample.lwj.web.service.impl;
 
 import com.sample.lwj.remote.dto.UserDTO;
+import com.sample.lwj.remote.exception.AppException;
 import com.sample.lwj.remote.service.IMenuServiceRemote;
 import com.sample.lwj.remote.vo.UserVO;
-import com.sample.lwj.web.exception.AppException;
 import com.sample.lwj.web.service.ITokenService;
 import com.sample.lwj.web.service.IUserService;
 import com.sample.lwj.remote.service.IUserServiceRemote;

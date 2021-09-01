@@ -11,4 +11,5 @@
     <dubbo:service interface="com.sample.lwj.remote.service.IUserServiceRemote" ref="userServiceRemote"/>
     <dubbo:service interface="com.sample.lwj.remote.service.IOrderServiceRemote" ref="orderServiceRemote"/>
     <dubbo:service interface="com.sample.lwj.remote.service.IMenuServiceRemote" ref="menuServiceRemote"/>
+    <dubbo:service interface="com.sample.lwj.remote.service.IScheduleJobServiceRemote" ref="scheduleJobServiceRemote"/>
 </beans>

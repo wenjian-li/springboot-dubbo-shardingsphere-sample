@@ -1,7 +1,7 @@
 package com.sample.lwj.web.aop;
 
 import com.sample.lwj.remote.dto.UserDTO;
-import com.sample.lwj.web.exception.AppException;
+import com.sample.lwj.remote.exception.AppException;
 import com.sample.lwj.web.service.ITokenService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
