@@ -38,6 +38,11 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!--引入thymeleaf依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
 
         <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
@@ -95,6 +100,7 @@
     </dependencies>
 
     <build>
+        <finalName>sample-web-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
