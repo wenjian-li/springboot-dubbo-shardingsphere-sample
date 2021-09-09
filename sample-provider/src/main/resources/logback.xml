@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!--日志文件-->
-    <property name="LOG_FOLDER" value="/logs/sample-provider" />
+    <property name="LOG_FOLDER" value="/sample/logs/sample-provider" />
     <property name="LOG_PATTERN" value="%d{ISO8601} %-5level %t %class{36} %L %M -%X{R_ID}-%X{U_ID}-%X{S_ID}-%X{requestId} %msg%xEx%n" />
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
