@@ -2,6 +2,14 @@ spring:
   #国际化
   messages:
     basename: i18n/messages
+  #设置区域（语言）
+  #国际化Locale有两种设置方式：
+  #1、通过配置LocaleChangeInterceptor拦截请求（需要配置@Bean LocaleChangeInterceptor注册到WebMvcConfigurer InterceptorRegistry），动态切换语言方式：请求URL?language=zh_CN
+  #2、通过配置文件spring.web.locale=zh_CN,spring.web.locale-resolver=fixed设置,不可动态切换语言
+#  web:
+#    locale: zh_CN
+#    locale-resolver: fixed
+
   #模板
   thymeleaf:
     enabled: true #开启thymeleaf视图解析
