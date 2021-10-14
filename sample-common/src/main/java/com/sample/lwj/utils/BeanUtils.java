@@ -1,10 +1,8 @@
-package com.sample.lwj.provider.utils;
+package com.sample.lwj.utils;
 
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,8 +29,7 @@ public class BeanUtils {
      * @param <T>    泛型
      * @return 转换后的结果
      */
-    @NonNull
-    public static <T> T toBean(@NonNull Object source, @NonNull Class<T> clazz) {
+    public static <T> T toBean(Object source, Class<T> clazz) {
         return Optional.ofNullable(source).map(bean -> DOZER_BEAN_MAPPER.map(source, clazz)).orElse(null);
     }
 
@@ -46,8 +43,7 @@ public class BeanUtils {
      * @param <T>    泛型
      * @return 转换后的结果
      */
-    @Nullable
-    public static <T> List<T> toList(@Nullable List<?> source, @NonNull Class<T> clazz) {
+    public static <T> List<T> toList(List<?> source, Class<T> clazz) {
         return Optional.ofNullable(source)
                 .orElse(Collections.emptyList())
                 .stream()

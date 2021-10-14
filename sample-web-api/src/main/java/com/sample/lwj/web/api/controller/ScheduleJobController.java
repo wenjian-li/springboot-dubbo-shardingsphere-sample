@@ -1,9 +1,9 @@
 package com.sample.lwj.web.api.controller;
 
 import com.sample.lwj.remote.vo.ScheduleJobVO;
+import com.sample.lwj.utils.ResultData;
 import com.sample.lwj.web.constant.Constant;
 import com.sample.lwj.web.service.IScheduleJobService;
-import com.sample.lwj.web.utils.ResultData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.sample.lwj.web.exception;
 
-import com.sample.lwj.remote.exception.AppException;
-import com.sample.lwj.web.utils.ResultData;
+import com.sample.lwj.exception.BizException;
+import com.sample.lwj.utils.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -31,8 +31,8 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({AppException.class})
-    public ResultData appException(AppException e) {
+    @ExceptionHandler({BizException.class})
+    public ResultData bizException(BizException e) {
         logger.error(e.getMessage(), e);
         return ResultData.fail(e.getCode(), e.getMsg());
     }

@@ -1,8 +1,8 @@
 package com.sample.lwj.provider.utils;
 
 import com.sample.lwj.entity.ScheduleJob;
+import com.sample.lwj.exception.BizException;
 import com.sample.lwj.provider.constant.Constant;
-import com.sample.lwj.remote.exception.AppException;
 import org.quartz.*;
 
 /**
@@ -36,7 +36,7 @@ public class SchedulerUtils {
         try {
             return (CronTrigger) scheduler.getTrigger(getTriggerKey(jobId));
         } catch (SchedulerException e) {
-            throw new AppException("获取定时任务CronTrigger出现异常", e);
+            throw new BizException("获取定时任务CronTrigger出现异常", e);
         }
     }
 
@@ -65,7 +65,7 @@ public class SchedulerUtils {
                 pauseJob(scheduler, scheduleJob.getJobId());
             }
         } catch (SchedulerException e) {
-            throw new AppException("创建定时任务失败", e);
+            throw new BizException("创建定时任务失败", e);
         }
     }
 
@@ -96,7 +96,7 @@ public class SchedulerUtils {
             }
 
         } catch (SchedulerException e) {
-            throw new AppException("更新定时任务失败", e);
+            throw new BizException("更新定时任务失败", e);
         }
     }
 
@@ -111,7 +111,7 @@ public class SchedulerUtils {
 
             scheduler.triggerJob(getJobKey(scheduleJob.getJobId()), dataMap);
         } catch (SchedulerException e) {
-            throw new AppException("立即执行定时任务失败", e);
+            throw new BizException("立即执行定时任务失败", e);
         }
     }
 
@@ -122,7 +122,7 @@ public class SchedulerUtils {
         try {
             scheduler.pauseJob(getJobKey(jobId));
         } catch (SchedulerException e) {
-            throw new AppException("暂停定时任务失败", e);
+            throw new BizException("暂停定时任务失败", e);
         }
     }
 
@@ -133,7 +133,7 @@ public class SchedulerUtils {
         try {
             scheduler.resumeJob(getJobKey(jobId));
         } catch (SchedulerException e) {
-            throw new AppException("暂停定时任务失败", e);
+            throw new BizException("暂停定时任务失败", e);
         }
     }
 
@@ -144,7 +144,7 @@ public class SchedulerUtils {
         try {
             scheduler.deleteJob(getJobKey(jobId));
         } catch (SchedulerException e) {
-            throw new AppException("删除定时任务失败", e);
+            throw new BizException("删除定时任务失败", e);
         }
     }
 }

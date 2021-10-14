@@ -1,6 +1,8 @@
 package com.sample.lwj.remote.service;
 
+import com.sample.lwj.remote.dto.CommonParamDTO;
 import com.sample.lwj.remote.dto.UserDTO;
+import com.sample.lwj.utils.PageUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -20,5 +22,7 @@ public interface IUserServiceRemote {
     List<UserDTO> selectByDateRange(Date start, Date end);
 
     List<UserDTO> selectByDate(Date date);
+
+    PageUtils<UserDTO> selectByPage(PageUtils<CommonParamDTO> pageUtils);
 
 }

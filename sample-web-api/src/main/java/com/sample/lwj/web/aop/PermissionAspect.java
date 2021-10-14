@@ -1,7 +1,7 @@
 package com.sample.lwj.web.aop;
 
+import com.sample.lwj.exception.BizException;
 import com.sample.lwj.remote.dto.UserDTO;
-import com.sample.lwj.remote.exception.AppException;
 import com.sample.lwj.web.service.ITokenService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -46,11 +46,11 @@ public class PermissionAspect {
         String token = servletRequest.getHeader("token");
         //token为空
         if (StringUtils.isBlank(token)) {
-            throw new AppException("token不能为空");
+            throw new BizException("token不能为空");
         }
         UserDTO userInfo = tokenService.queryByToken(token);
         if (userInfo == null) {
-            throw new AppException("token失效,请重新登录");
+            throw new BizException("token失效,请重新登录");
         }
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -63,7 +63,7 @@ public class PermissionAspect {
         Boolean unauthorized = rp.logical() == Logical.AND ? intersection.size() != values.size() : intersection.size() == 0;
         if (unauthorized) {
             //抛出[权限不足]的异常
-            throw new AppException("权限不足");
+            throw new BizException("权限不足");
         }
     }
 }

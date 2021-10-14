@@ -1,13 +1,15 @@
 package com.sample.lwj.web.service.impl;
 
+import com.sample.lwj.exception.BizException;
+import com.sample.lwj.remote.dto.CommonParamDTO;
 import com.sample.lwj.remote.dto.UserDTO;
-import com.sample.lwj.remote.exception.AppException;
 import com.sample.lwj.remote.service.IMenuServiceRemote;
 import com.sample.lwj.remote.vo.UserVO;
+import com.sample.lwj.utils.BeanUtils;
+import com.sample.lwj.utils.PageUtils;
 import com.sample.lwj.web.service.ITokenService;
 import com.sample.lwj.web.service.IUserService;
 import com.sample.lwj.remote.service.IUserServiceRemote;
-import com.sample.lwj.web.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -51,11 +53,11 @@ public class UserServiceImpl implements IUserService {
     public String login(String username, String password) {
         UserDTO userDTO = userServiceRemote.selectByUsername(username);
         if (userDTO == null) {
-            throw new AppException("账号或密码错误");
+            throw new BizException("账号或密码错误");
         }
         boolean validate = DigestUtils.md5DigestAsHex(password.trim().getBytes(StandardCharsets.UTF_8)).equals(userDTO.getPassword());
         if (!validate) {
-            throw new AppException("账号或密码错误");
+            throw new BizException("账号或密码错误");
         }
         List<String> permissions = menuServiceRemote.selectPermissionsByRoleId(userDTO.getRoleId());
         userDTO.setPermissions(permissions);
@@ -65,5 +67,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void logout(String token) {
         tokenService.invalidateToken(token);
+    }
+
+    @Override
+    public PageUtils<UserVO> selectByPage(PageUtils<CommonParamDTO> pageUtils) {
+        PageUtils<UserDTO> page = userServiceRemote.selectByPage(pageUtils);
+        return new PageUtils<>(page, BeanUtils.toList(page.getRecords(), UserVO.class));
     }
 }

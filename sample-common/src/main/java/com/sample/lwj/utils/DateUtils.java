@@ -1,4 +1,4 @@
-package com.sample.lwj.web.utils;
+package com.sample.lwj.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -16,6 +16,14 @@ import java.util.Date;
  * @date 2021/8/3 13:41
  */
 public class DateUtils {
+    /**
+     * 时间格式(yyyy)
+     */
+    public final static String YYYY = "yyyy";
+    /**
+     * 时间格式(yyyyMM)
+     */
+    public final static String YYYYMM = "yyyyMM";
     /**
      * 时间格式(yyyyMMdd)
      */

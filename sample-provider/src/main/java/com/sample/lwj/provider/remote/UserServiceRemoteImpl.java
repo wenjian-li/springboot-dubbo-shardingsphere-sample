@@ -1,11 +1,15 @@
 package com.sample.lwj.provider.remote;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sample.lwj.provider.utils.BeanUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sample.lwj.entity.User;
 import com.sample.lwj.provider.service.IUserService;
+import com.sample.lwj.remote.dto.CommonParamDTO;
 import com.sample.lwj.remote.dto.UserDTO;
 import com.sample.lwj.remote.service.IUserServiceRemote;
+import com.sample.lwj.utils.BeanUtils;
+import com.sample.lwj.utils.PageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +61,15 @@ public class UserServiceRemoteImpl implements IUserServiceRemote {
     @Override
     public List<UserDTO> selectByDate(Date date) {
         return BeanUtils.toList(userService.selectByDate(date), UserDTO.class);
+    }
+
+    @Override
+    public PageUtils<UserDTO> selectByPage(PageUtils<CommonParamDTO> pageUtils) {
+        Page<User> page = userService.page(
+                new Page(pageUtils.getCurrentPage(), pageUtils.getPageSize()),
+                new QueryWrapper()
+                        .ge(pageUtils.getParams().getSearchStartTime() != null, "CREATE_TIME", pageUtils.getParams().getSearchStartTime())
+                        .le(pageUtils.getParams().getSearchEndTime() != null, "CREATE_TIME", pageUtils.getParams().getSearchEndTime()));
+        return new PageUtils<>(BeanUtils.toList(page.getRecords(), UserDTO.class), page.getCurrent(), page.getSize(), page.getTotal(), page.getPages());
     }
 }

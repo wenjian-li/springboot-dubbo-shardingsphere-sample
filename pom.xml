@@ -13,6 +13,7 @@
         <module>sample-core</module>
         <module>sample-remote</module>
         <module>sample-web-api</module>
+        <module>sample-common</module>
     </modules>
 
     <properties>

@@ -1,16 +1,20 @@
 package com.sample.lwj.web.api.controller;
 
+import com.sample.lwj.remote.dto.CommonParamDTO;
 import com.sample.lwj.remote.vo.UserVO;
+import com.sample.lwj.utils.DateUtils;
+import com.sample.lwj.utils.PageUtils;
+import com.sample.lwj.utils.ResultData;
 import com.sample.lwj.web.aop.Logical;
 import com.sample.lwj.web.aop.RequiresPermissions;
+import com.sample.lwj.web.constant.Constant;
 import com.sample.lwj.web.service.IUserService;
-import com.sample.lwj.web.utils.DateUtils;
-import com.sample.lwj.web.utils.ResultData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,7 +25,7 @@ import java.util.List;
 @Api(tags = "用户模块")
 @RestController
 @RequestMapping(value = "/api/user")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     private IUserService userService;
@@ -82,5 +86,18 @@ public class UserController {
 
         return ResultData.success(userService.selectByDateRange(DateUtils.stringToDate(start, DateUtils.YYYYMMDD), DateUtils.stringToDate(end, DateUtils.YYYYMMDD)));
     }
+
+    /**
+     * 分页查询
+     *
+     * @return 操作日志分页
+     */
+    @ApiOperation(value = "分页查询")
+    @PostMapping(value = "/selectByPage", produces = Constant.PRODUCES_JSON_UTF8)
+    @ResponseBody
+    public ResultData<PageUtils<UserVO>> selectByPage(@Valid @RequestBody PageUtils<CommonParamDTO> pageUtils) {
+        return ResultData.success(userService.selectByPage(pageUtils));
+    }
+
 
 }

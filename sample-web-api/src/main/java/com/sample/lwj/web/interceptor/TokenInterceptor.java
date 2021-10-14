@@ -1,6 +1,6 @@
 package com.sample.lwj.web.interceptor;
 
-import com.sample.lwj.remote.exception.AppException;
+import com.sample.lwj.exception.BizException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -23,7 +23,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         String token = request.getHeader("token");
         //token为空
         if (StringUtils.isBlank(token)) {
-            throw new AppException("token不能为空");
+            throw new BizException("token不能为空");
         }
         return true;
     }

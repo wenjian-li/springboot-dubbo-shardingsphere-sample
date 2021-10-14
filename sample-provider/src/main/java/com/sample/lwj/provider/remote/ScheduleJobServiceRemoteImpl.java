@@ -2,9 +2,9 @@ package com.sample.lwj.provider.remote;
 
 import com.sample.lwj.entity.ScheduleJob;
 import com.sample.lwj.provider.service.IScheduleJobService;
-import com.sample.lwj.provider.utils.BeanUtils;
 import com.sample.lwj.remote.dto.ScheduleJobDTO;
 import com.sample.lwj.remote.service.IScheduleJobServiceRemote;
+import com.sample.lwj.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

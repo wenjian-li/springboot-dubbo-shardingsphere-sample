@@ -3,8 +3,8 @@ package com.sample.lwj.web.service.impl;
 import com.sample.lwj.remote.dto.OrderDTO;
 import com.sample.lwj.remote.service.IOrderServiceRemote;
 import com.sample.lwj.remote.vo.OrderVO;
+import com.sample.lwj.utils.BeanUtils;
 import com.sample.lwj.web.service.IOrderService;
-import com.sample.lwj.web.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

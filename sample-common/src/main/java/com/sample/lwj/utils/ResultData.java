@@ -1,4 +1,4 @@
-package com.sample.lwj.web.utils;
+package com.sample.lwj.utils;
 
 import java.io.Serializable;
 
@@ -12,8 +12,10 @@ public class ResultData<T> implements Serializable {
 
     public static final Integer SUCCESS_CODE = 0;
     public static final String SUCCESS_MSG = "success";
+    public static final Integer FAIL_CODE = -1;
+    public static final String FAIL_MSG = "fail";
     public static final Integer ERROR_CODE = 500;
-    public static final String ERROR_MSG = "系统繁忙，请稍后重试。";
+    public static final String ERROR_MSG = "error";
 
     /**
      * 状态码
@@ -84,6 +86,36 @@ public class ResultData<T> implements Serializable {
      */
     public static ResultData error() {
         return result(ERROR_CODE, ERROR_MSG, null);
+    }
+
+    /**
+     * 异常提示
+     *
+     * @return 异常提示
+     */
+    public static ResultData error(String msg) {
+        return result(ERROR_CODE, msg, null);
+    }
+
+    /**
+     * 失败提示（带返回数据）
+     *
+     * @param <T> 泛型返回值
+     * @return
+     */
+    public static <T> ResultData fail() {
+        return result(FAIL_CODE, FAIL_MSG, null);
+    }
+
+    /**
+     * 失败提示（带返回数据）
+     *
+     * @param msg 提示信息
+     * @param <T> 泛型返回值
+     * @return
+     */
+    public static <T> ResultData fail(String msg) {
+        return result(FAIL_CODE, msg, null);
     }
 
     /**

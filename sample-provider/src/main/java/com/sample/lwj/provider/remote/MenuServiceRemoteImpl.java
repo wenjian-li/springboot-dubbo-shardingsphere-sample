@@ -1,9 +1,9 @@
 package com.sample.lwj.provider.remote;
 
 import com.sample.lwj.provider.service.IMenuService;
-import com.sample.lwj.provider.utils.BeanUtils;
 import com.sample.lwj.remote.dto.MenuDTO;
 import com.sample.lwj.remote.service.IMenuServiceRemote;
+import com.sample.lwj.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
