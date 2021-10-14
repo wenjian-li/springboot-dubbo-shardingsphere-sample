@@ -90,7 +90,7 @@ public class UserController extends BaseController{
     /**
      * 分页查询
      *
-     * @return 操作日志分页
+     * @return 用户分页
      */
     @ApiOperation(value = "分页查询")
     @PostMapping(value = "/selectByPage", produces = Constant.PRODUCES_JSON_UTF8)
