@@ -101,7 +101,7 @@ public class DateUtils {
      * @return 返回date开始时间（2021-01-01 00:00:00）
      */
     public static Date getWeekStartTime(int year, int week) {
-        return DateTime.now().withYear(year).dayOfWeek().withMinimumValue().withWeekOfWeekyear(week).withTimeAtStartOfDay().toDate();
+        return DateTime.now().withYear(year).withWeekOfWeekyear(week).dayOfWeek().withMinimumValue().withTimeAtStartOfDay().toDate();
     }
 
     /**
@@ -113,7 +113,7 @@ public class DateUtils {
      */
     public static Date getWeekEndTime(int year, int week) {
         //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
-        return DateTime.now().withYear(year).dayOfWeek().withMaximumValue().withWeekOfWeekyear(week).millisOfDay().withMaximumValue().toDate();
+        return DateTime.now().withYear(year).withWeekOfWeekyear(week).dayOfWeek().withMaximumValue().millisOfDay().withMaximumValue().toDate();
     }
 
 
