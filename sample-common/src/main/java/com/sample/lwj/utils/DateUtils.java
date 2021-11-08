@@ -1,5 +1,6 @@
 package com.sample.lwj.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
@@ -69,7 +70,7 @@ public class DateUtils {
      * @param pattern 日期的格式，如：DateUtils.DATE_TIME_PATTERN
      */
     public static Date stringToDate(String strDate, String pattern) {
-        if (strDate == null || "".equals(strDate)) {
+        if (StringUtils.isBlank(strDate)) {
             return null;
         }
 
@@ -113,7 +114,7 @@ public class DateUtils {
      */
     public static Date getWeekEndTime(int year, int week) {
         //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
-        return DateTime.now().withYear(year).dayOfWeek().withMaximumValue().withWeekOfWeekyear(week).withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
+        return DateTime.now().withYear(year).dayOfWeek().withMaximumValue().withWeekOfWeekyear(week).millisOfDay().withMaximumValue().toDate();
     }
 
 
@@ -137,7 +138,7 @@ public class DateUtils {
      */
     public static Date getMonthEndTime(int year, int month) {
         //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
-        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMaximumValue().withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
+        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMaximumValue().millisOfDay().withMaximumValue().toDate();
     }
 
 
@@ -191,7 +192,7 @@ public class DateUtils {
                 break;
         }
         //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
-        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMaximumValue().withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
+        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMaximumValue().millisOfDay().withMaximumValue().toDate();
     }
 
 
@@ -213,7 +214,7 @@ public class DateUtils {
      */
     public static Date getYearEndTime(int year) {
         //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
-        return DateTime.now().withYear(year).dayOfYear().withMaximumValue().withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
+        return DateTime.now().withYear(year).dayOfYear().withMaximumValue().millisOfDay().withMaximumValue().toDate();
     }
 
     /**
