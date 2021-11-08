@@ -1,7 +1,7 @@
 package com.sample.lwj.utils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -69,7 +69,7 @@ public class DateUtils {
      * @param pattern 日期的格式，如：DateUtils.DATE_TIME_PATTERN
      */
     public static Date stringToDate(String strDate, String pattern) {
-        if (StringUtils.isBlank(strDate)) {
+        if (strDate == null || "".equals(strDate)) {
             return null;
         }
 
@@ -91,6 +91,129 @@ public class DateUtils {
         Date beginDate = date.toDate();
         Date endDate = date.plusDays(6).toDate();
         return new Date[]{beginDate, endDate};
+    }
+
+    /**
+     * 根据年份、周数，获取开始时间
+     *
+     * @param year 年份
+     * @param week 一年周期
+     * @return 返回date开始时间（2021-01-01 00:00:00）
+     */
+    public static Date getWeekStartTime(int year, int week) {
+        return DateTime.now().withYear(year).dayOfWeek().withMinimumValue().withWeekOfWeekyear(week).withTimeAtStartOfDay().toDate();
+    }
+
+    /**
+     * 根据年份、周数，获取结束时间
+     *
+     * @param year 年份
+     * @param week 一年周期
+     * @return 返回date结束时间（2021-01-01 23:59:59）
+     */
+    public static Date getWeekEndTime(int year, int week) {
+        //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
+        return DateTime.now().withYear(year).dayOfWeek().withMaximumValue().withWeekOfWeekyear(week).withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
+    }
+
+
+    /**
+     * 根据年份、月份，获取开始时间
+     *
+     * @param year  年份
+     * @param month 月份
+     * @return 返回date开始时间（2021-01-01 00:00:00）
+     */
+    public static Date getMonthStartTime(int year, int month) {
+        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMinimumValue().withTimeAtStartOfDay().toDate();
+    }
+
+    /**
+     * 根据年份、月份，获取结束时间
+     *
+     * @param year  年份
+     * @param month 月份
+     * @return 返回date结束时间（2021-01-31 23:59:59）
+     */
+    public static Date getMonthEndTime(int year, int month) {
+        //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
+        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMaximumValue().withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
+    }
+
+
+    /**
+     * 根据年份、季度，获取开始时间
+     *
+     * @param year    年份
+     * @param quarter 季度
+     * @return 返回date开始时间（2021-01-01 00:00:00）
+     */
+    public static Date getQuarterStartTime(int year, int quarter) {
+        int month = DateTimeConstants.JANUARY;
+        switch (quarter) {
+            case 1:
+                month = DateTimeConstants.JANUARY;
+                break;
+            case 2:
+                month = DateTimeConstants.APRIL;
+                break;
+            case 3:
+                month = DateTimeConstants.JULY;
+                break;
+            case 4:
+                month = DateTimeConstants.OCTOBER;
+                break;
+        }
+        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMinimumValue().withTimeAtStartOfDay().toDate();
+    }
+
+    /**
+     * 根据年份、季度，获取结束时间
+     *
+     * @param year    年份
+     * @param quarter 季度
+     * @return 返回date结束时间（2021-12-31 23:59:59）
+     */
+    public static Date getQuarterEndTime(int year, int quarter) {
+        int month = DateTimeConstants.MARCH;
+        switch (quarter) {
+            case 1:
+                month = DateTimeConstants.MARCH;
+                break;
+            case 2:
+                month = DateTimeConstants.JUNE;
+                break;
+            case 3:
+                month = DateTimeConstants.SEPTEMBER;
+                break;
+            case 4:
+                month = DateTimeConstants.DECEMBER;
+                break;
+        }
+        //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
+        return DateTime.now().withYear(year).withMonthOfYear(month).dayOfMonth().withMaximumValue().withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
+    }
+
+
+    /**
+     * 根据年份获取开始时间
+     *
+     * @param year 年份
+     * @return 返回date开始时间（2021-01-01 00:00:00）
+     */
+    public static Date getYearStartTime(int year) {
+        return DateTime.now().withYear(year).dayOfYear().withMinimumValue().withTimeAtStartOfDay().toDate();
+    }
+
+    /**
+     * 根据年份获取结束时间
+     *
+     * @param year 年份
+     * @return 返回date结束时间（2021-12-31 23:59:59）
+     */
+    public static Date getYearEndTime(int year) {
+        //一天最大毫秒86399999 = DateTimeConstants.MILLIS_PER_DAY - 1
+        return DateTime.now().withYear(year).dayOfYear().withMaximumValue().withMillisOfDay(DateTimeConstants.MILLIS_PER_DAY - 1).toDate();
     }
 
     /**
