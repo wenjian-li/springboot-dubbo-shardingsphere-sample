@@ -1,14 +1,21 @@
 #!/bin/bash
 
+# 注意！linux下将文件格式转化为unix格式命令：sed -i 's/\r$//' server.sh
+
 # project name
 PROJECT_NAME="sample-web-api"
 
 # project name path
-PROJECT_DIR=/sample/application/${PROJECT_NAME}
+PROJECT_DIR=$(cd `dirname $0`; cd ..; pwd)
+
+JAVA_HOME=${JAVA_HOME}
+
+JAVA_VERSION="jdk1.8.0_301"
+
+JAVA="${JAVA_HOME}""bin/java"
 
 # check jdk path
-if [ -e /usr/java/jdk1.8.0_291/bin/java ];then
-    JAVA=/usr/java/jdk1.8.0_291/bin/java
+if [[ $JAVA_HOME =~ $JAVA_VERSION ]] && [[ -e $JAVA ]];then
     echo "$JAVA"
 else
         echo -e "\033[31m java is not exist, you must be install java \033[0m"
@@ -57,7 +64,7 @@ start() {
             echo "============PID: $CURPID  running============="
             echo -e "\033[33m ########### Application of '"$PROJECT_NAME"' started successful at:"`date +%Y-%m-%d`"############ \033[0m"
             if [ "$isViewLog" = "-v" ]; then
-                tail -f /sample/logs/${PROJECT_NAME}/info/info.log
+                tail -f /dp/logs/${PROJECT_NAME}/info/info.log
             fi    			
         fi
 }
