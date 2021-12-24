@@ -29,6 +29,11 @@ public class MenuDTO implements Serializable {
     private String name;
 
     /**
+     * 菜单图标
+     */
+    private String icon;
+
+    /**
      * 菜单URL
      */
     private String url;

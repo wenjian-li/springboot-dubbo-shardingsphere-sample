@@ -25,7 +25,13 @@ public abstract class BaseController {
      * @return 当前登录用户
      */
     public UserDTO getCurrentUser() {
-        return tokenService.queryByToken(getCurrentToken());
+        //todo 模拟数据
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(1L);
+        userDTO.setRoleId(1);
+        userDTO.setUsername("admin");
+        return userDTO;
+//        return tokenService.queryByToken(getCurrentToken());
     }
 
     /**

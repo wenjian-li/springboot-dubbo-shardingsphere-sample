@@ -50,7 +50,7 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
-    public MenuDTO selectById(Long id) {
+    public MenuDTO selectById(Integer id) {
         MenuDTO menuDTO = menuServiceRemote.selectById(id);
         if (menuDTO != null && menuDTO.getPid() != null && menuDTO.getPid() != 0L) {
             MenuDTO parent = menuServiceRemote.selectById(menuDTO.getPid());

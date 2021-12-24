@@ -30,6 +30,11 @@ public class Menu implements Serializable {
     private String name;
 
     /**
+     * 菜单图标
+     */
+    private String icon;
+
+    /**
      * 菜单URL
      */
     private String url;
@@ -102,6 +107,14 @@ public class Menu implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     /**

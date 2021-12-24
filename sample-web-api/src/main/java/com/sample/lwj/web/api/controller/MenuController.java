@@ -7,8 +7,10 @@ import com.sample.lwj.remote.enums.MenuTypeEnum;
 import com.sample.lwj.utils.ResultData;
 import com.sample.lwj.web.aop.RequiresPermissions;
 import com.sample.lwj.web.service.IMenuService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,9 @@ import java.util.List;
  * @Description: 菜单管理
  * @date 2021/12/24 15:25
  */
+@Api(tags = "菜单管理")
+@Controller
+@RequestMapping(value = "/menu")
 public class MenuController extends BaseController {
 
     @Autowired
@@ -30,7 +35,7 @@ public class MenuController extends BaseController {
      *
      * @return
      */
-    @RequiresPermissions("sys:menu:view")
+//    @RequiresPermissions("sys:menu:view")
     @GetMapping(value = "/list")
     public String list() {
         return "menu/list";
@@ -42,7 +47,7 @@ public class MenuController extends BaseController {
      * @param modelMap
      * @return
      */
-    @RequiresPermissions("sys:menu:add")
+//    @RequiresPermissions("sys:menu:add")
     @GetMapping(value = "/add")
     public String add(ModelMap modelMap) {
         modelMap.put("typeList", MenuTypeEnum.values());
@@ -56,7 +61,7 @@ public class MenuController extends BaseController {
      * @param menuId
      * @return
      */
-    @RequiresPermissions("sys:menu:edit")
+//    @RequiresPermissions("sys:menu:edit")
     @GetMapping(value = "/edit/{menuId}")
     public String edit(ModelMap modelMap, @PathVariable("menuId") Integer menuId) {
         modelMap.put("menu", menuService.selectById(menuId));
@@ -70,7 +75,7 @@ public class MenuController extends BaseController {
      * @param menuDTO
      * @return
      */
-    @RequiresPermissions("sys:menu:add")
+//    @RequiresPermissions("sys:menu:add")
     @ApiOperation("保存")
     @PostMapping(value = "/save", produces = Constants.PRODUCES_JSON_UTF8)
     @ResponseBody
@@ -84,7 +89,7 @@ public class MenuController extends BaseController {
      * @param menuDTO
      * @return
      */
-    @RequiresPermissions("sys:menu:edit")
+//    @RequiresPermissions("sys:menu:edit")
     @ApiOperation("更新")
     @PostMapping(value = "/update", produces = Constants.PRODUCES_JSON_UTF8)
     @ResponseBody
@@ -99,7 +104,7 @@ public class MenuController extends BaseController {
      * @param menuId
      * @return
      */
-    @RequiresPermissions("sys:menu:delete")
+//    @RequiresPermissions("sys:menu:delete")
     @ApiOperation("删除")
     @PostMapping(value = "/delete", produces = Constants.PRODUCES_JSON_UTF8)
     @ResponseBody
@@ -134,7 +139,7 @@ public class MenuController extends BaseController {
     /**
      * 菜单列表
      */
-    @RequiresPermissions("sys:menu:list")
+//    @RequiresPermissions("sys:menu:list")
     @ApiOperation(value = "菜单列表")
     @PostMapping(value = "/menuList", produces = Constants.PRODUCES_JSON_UTF8)
     @ResponseBody

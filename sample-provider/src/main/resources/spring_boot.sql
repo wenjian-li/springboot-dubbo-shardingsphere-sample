@@ -13,33 +13,39 @@ File Encoding         : 65001
 Date: 2021-08-13 10:36:20
 */
 
-SET FOREIGN_KEY_CHECKS=0;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for t_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `t_menu`;
-CREATE TABLE `t_menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父ID，一级菜单为0',
-  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '菜单名称',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '菜单URL',
-  `permission` varchar(255) NOT NULL DEFAULT '' COMMENT '授权(多个用逗号分隔，如：user:list,user:create)',
-  `type` int(2) NOT NULL DEFAULT '0' COMMENT '类型   0：目录   1：菜单   2：按钮',
-  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='菜单管理';
+CREATE TABLE `t_menu`  (
+       `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+       `pid` int(11) NOT NULL DEFAULT 0 COMMENT '父ID，一级菜单为0',
+       `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
+       `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+       `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '菜单URL',
+       `permission` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '授权(多个用逗号分隔，如：user:list,user:create)',
+       `type` int(2) NOT NULL DEFAULT 0 COMMENT '类型   0：目录   1：菜单   2：按钮',
+       `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+       `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+       `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES ('1', '0', '用户管理', '', '', '1', '0', '2021-08-10 15:43:51', '2021-08-10 18:11:47');
-INSERT INTO `t_menu` VALUES ('2', '0', '查看', '', 'user:list,user:info', '1', '1', '2021-08-10 15:44:10', '2021-08-10 18:11:50');
-INSERT INTO `t_menu` VALUES ('3', '0', '新增', '', 'user:add', '1', '2', '2021-08-10 16:24:18', '2021-08-10 16:24:18');
-INSERT INTO `t_menu` VALUES ('4', '0', '修改', '', 'user:update', '1', '3', '2021-08-10 16:24:38', '2021-08-10 16:24:38');
-INSERT INTO `t_menu` VALUES ('5', '0', '删除', '', 'user:delete', '1', '4', '2021-08-10 16:24:55', '2021-08-10 16:24:55');
+INSERT INTO `t_menu` VALUES (1, 6, '用户管理', NULL, '', '', 1, 0, '2021-08-10 15:43:51', '2021-12-24 15:47:50');
+INSERT INTO `t_menu` VALUES (2, 1, '查看', NULL, '', 'user:list,user:info', 1, 1, '2021-08-10 15:44:10', '2021-12-24 15:47:53');
+INSERT INTO `t_menu` VALUES (3, 1, '新增', NULL, '', 'user:add', 1, 2, '2021-08-10 16:24:18', '2021-12-24 15:47:54');
+INSERT INTO `t_menu` VALUES (4, 1, '修改', NULL, '', 'user:update', 1, 3, '2021-08-10 16:24:38', '2021-12-24 15:47:55');
+INSERT INTO `t_menu` VALUES (5, 1, '删除', NULL, '', 'user:delete', 1, 4, '2021-08-10 16:24:55', '2021-12-24 15:47:57');
+INSERT INTO `t_menu` VALUES (6, 0, '权限管理', NULL, '', '', 0, 0, '2021-12-24 15:47:37', '2021-12-24 15:47:37');
+INSERT INTO `t_menu` VALUES (7, 6, '菜单管理', NULL, '/menu/list', '', 1, 0, '2021-12-24 15:53:19', '2021-12-24 15:53:57');
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- ----------------------------
 -- Table structure for t_order

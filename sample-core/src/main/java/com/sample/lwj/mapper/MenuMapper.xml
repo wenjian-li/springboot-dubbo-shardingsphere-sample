@@ -8,6 +8,7 @@
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="pid" column="pid" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="permission" column="permission" jdbcType="VARCHAR"/>
             <result property="type" column="type" jdbcType="INTEGER"/>
@@ -25,6 +26,7 @@
         select a.id,
                a.pid,
                a.name,
+               a.icon,
                a.url,
                a.permission,
                a.type,
@@ -47,15 +49,16 @@
                  left join T_ROLE_MENU b on a.ID = b.MENU_ID
     </select>
     <select id="selectByUserId" resultMap="BaseResultMap">
-        select a.ID,
-               a.PID,
-               a.NAME,
-               a.URL,
-               a.PERMISSION,
-               a.TYPE,
-               a.SORT,
-               a.CREATE_TIME,
-               a.UPDATE_TIME
+        select a.id,
+               a.pid,
+               a.name,
+               a.icon,
+               a.url,
+               a.permission,
+               a.type,
+               a.sort,
+               a.create_time,
+               a.update_time
         from T_MENU a
                  left join T_ROLE_MENU b on a.ID = b.MENU_ID
                  left join T_USER c on c.ROLE_ID = b.ROLE_ID

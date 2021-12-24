@@ -1,7 +1,6 @@
 package com.sample.lwj.web.api.controller;
 
 import com.sample.lwj.remote.dto.MenuDTO;
-import com.sample.lwj.remote.dto.UserDTO;
 import com.sample.lwj.web.service.IMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,15 +29,9 @@ public class IndexController extends BaseController {
 
     @GetMapping("/")
     public String index(ModelMap modelMap) {
-        //todo
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(1L);
-        userDTO.setRoleId(1);
-        userDTO.setUsername("admin");
-        List<MenuDTO> navTrees = menuService.selectNavTreeByUserId(userDTO.getId());
+        List<MenuDTO> navTrees = menuService.selectNavTreeByUserId(getCurrentUserId());
         modelMap.put("navTrees", navTrees);
-//        modelMap.put("loginUser", getCurrentUser());
-        modelMap.put("loginUser", userDTO);
+        modelMap.put("loginUser", getCurrentUser());
         return "index";
     }
 
