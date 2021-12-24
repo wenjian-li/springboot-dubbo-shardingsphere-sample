@@ -37,13 +37,13 @@ CREATE TABLE `t_menu`  (
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES (1, 6, '用户管理', NULL, '', '', 1, 0, '2021-08-10 15:43:51', '2021-12-24 15:47:50');
+INSERT INTO `t_menu` VALUES (1, 6, '用户管理', 'fa fa-users', '', '', 1, 0, '2021-08-10 15:43:51', '2021-12-24 16:09:30');
 INSERT INTO `t_menu` VALUES (2, 1, '查看', NULL, '', 'user:list,user:info', 1, 1, '2021-08-10 15:44:10', '2021-12-24 15:47:53');
 INSERT INTO `t_menu` VALUES (3, 1, '新增', NULL, '', 'user:add', 1, 2, '2021-08-10 16:24:18', '2021-12-24 15:47:54');
 INSERT INTO `t_menu` VALUES (4, 1, '修改', NULL, '', 'user:update', 1, 3, '2021-08-10 16:24:38', '2021-12-24 15:47:55');
 INSERT INTO `t_menu` VALUES (5, 1, '删除', NULL, '', 'user:delete', 1, 4, '2021-08-10 16:24:55', '2021-12-24 15:47:57');
-INSERT INTO `t_menu` VALUES (6, 0, '权限管理', NULL, '', '', 0, 0, '2021-12-24 15:47:37', '2021-12-24 15:47:37');
-INSERT INTO `t_menu` VALUES (7, 6, '菜单管理', NULL, '/menu/list', '', 1, 0, '2021-12-24 15:53:19', '2021-12-24 15:53:57');
+INSERT INTO `t_menu` VALUES (6, 0, '权限管理', 'fa fa-shield', '', '', 0, 0, '2021-12-24 15:47:37', '2021-12-24 16:08:37');
+INSERT INTO `t_menu` VALUES (7, 6, '菜单管理', 'fa fa-list', '/menu/list', '', 1, 0, '2021-12-24 15:53:19', '2021-12-24 16:11:14');
 
 SET FOREIGN_KEY_CHECKS = 1;
 
