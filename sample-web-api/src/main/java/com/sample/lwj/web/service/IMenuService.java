@@ -43,7 +43,7 @@ public interface IMenuService {
      * @param id
      * @return
      */
-    MenuDTO selectById(Long id);
+    MenuDTO selectById(Integer id);
 
     /**
      * 根据用户ID查询菜单
