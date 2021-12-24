@@ -6,7 +6,22 @@ package com.sample.lwj.provider.constant;
  * @Description: provider服务常量
  * @date 2021/8/29 16:29
  */
-public class Constant {
+public class Constants {
+    /**
+     * 常量0
+     */
+    public static final Integer ZERO = 0;
+
+    /**
+     * 常量1
+     */
+    public static final Integer ONE = 1;
+
+    /**
+     * 英文逗号分隔符
+     */
+    public static final String COMMA_SPLIT = ",";
+
     /**
      * 定时任务状态
      */

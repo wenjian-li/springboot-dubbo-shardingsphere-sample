@@ -29,6 +29,15 @@ public abstract class BaseController {
     }
 
     /**
+     * 获取当前登录用户ID
+     *
+     * @return 当前登录用户ID
+     */
+    public Long getCurrentUserId() {
+        return getCurrentUser().getId();
+    }
+
+    /**
      * 获取当前请求token
      *
      * @return 请求头token

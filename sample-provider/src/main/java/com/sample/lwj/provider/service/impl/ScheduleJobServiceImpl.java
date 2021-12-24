@@ -3,7 +3,7 @@ package com.sample.lwj.provider.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sample.lwj.entity.ScheduleJob;
 import com.sample.lwj.mapper.ScheduleJobMapper;
-import com.sample.lwj.provider.constant.Constant;
+import com.sample.lwj.provider.constant.Constants;
 import com.sample.lwj.provider.service.IScheduleJobService;
 import com.sample.lwj.provider.utils.SchedulerUtils;
 import org.quartz.CronTrigger;
@@ -50,7 +50,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
     @Transactional(rollbackFor = Exception.class)
     public void saveJob(ScheduleJob scheduleJob) {
         scheduleJob.setCreateTime(new Date());
-        scheduleJob.setStatus(Constant.ScheduleStatus.NORMAL.getValue());
+        scheduleJob.setStatus(Constants.ScheduleStatus.NORMAL.getValue());
         this.save(scheduleJob);
 
         SchedulerUtils.createScheduleJob(scheduler, scheduleJob);
@@ -98,7 +98,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
             SchedulerUtils.pauseJob(scheduler, jobId);
         }
 
-        updateBatch(jobIds, Constant.ScheduleStatus.PAUSE.getValue());
+        updateBatch(jobIds, Constants.ScheduleStatus.PAUSE.getValue());
     }
 
     @Override
@@ -108,7 +108,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
             SchedulerUtils.resumeJob(scheduler, jobId);
         }
 
-        updateBatch(jobIds, Constant.ScheduleStatus.NORMAL.getValue());
+        updateBatch(jobIds, Constants.ScheduleStatus.NORMAL.getValue());
     }
 
 }

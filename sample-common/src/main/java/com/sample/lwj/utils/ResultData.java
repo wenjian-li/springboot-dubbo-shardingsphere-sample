@@ -117,6 +117,16 @@ public class ResultData<T> implements Serializable {
     public static <T> ResultData fail(String msg) {
         return result(FAIL_CODE, msg, null);
     }
+    /**
+     * 失败提示（带返回数据）
+     *
+     * @param data 返回数据
+     * @param <T> 泛型返回值
+     * @return
+     */
+    public static <T> ResultData fail(T data) {
+        return result(FAIL_CODE, FAIL_MSG, data);
+    }
 
     /**
      * 失败提示（带返回数据）
@@ -157,6 +167,7 @@ public class ResultData<T> implements Serializable {
         resultData.data = data;
         return resultData;
     }
+
 
 
 }

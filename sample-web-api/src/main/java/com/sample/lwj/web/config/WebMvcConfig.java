@@ -27,7 +27,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //token
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/login");
+                .excludePathPatterns("/")
+                .excludePathPatterns("/api/login")
+                .excludePathPatterns("/server/*")
+                .excludePathPatterns("/static/**")
+                .excludePathPatterns("/js/**")
+                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/font/**")
+                .excludePathPatterns("/layui/**")
+                .excludePathPatterns("/font-awesome/**")
+                .excludePathPatterns("/images/**");
         //国际化
         registry.addInterceptor(localeChangeInterceptor());
 

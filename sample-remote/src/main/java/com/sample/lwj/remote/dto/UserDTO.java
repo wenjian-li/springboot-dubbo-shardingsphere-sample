@@ -1,16 +1,28 @@
 package com.sample.lwj.remote.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 
+@Data
 public class UserDTO implements Serializable {
 
     private static final long serialVersionUID = -7492128196992680601L;
+
     /**
-     * 主键ID
+     * 超级管理员ID
      */
+    public static final long SUPER_ADMIN_ID = 1;
+
+    /**
+     * 主键
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     /**
@@ -42,98 +54,26 @@ public class UserDTO implements Serializable {
     /**
      * 用户权限
      */
-    private List<String> permissions;
+    private Set<String> permissions;
 
 
-    /**
-     * 主键ID
-     */
-    public Long getId() {
-        return id;
-    }
 
     /**
-     * 主键ID
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * 姓名
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * 姓名
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * 密码
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * 密码
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
+     * 是否为超级管理员
      *
+     * @param userId 用户ID
+     * @return 校验结果
      */
-    public Integer getRoleId() {
-        return roleId;
+    public static boolean isSuperAdmin(Long userId) {
+        return userId != null && userId == UserDTO.SUPER_ADMIN_ID;
     }
 
     /**
+     * 是否为超级管理员
      *
+     * @return 校验结果
      */
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    /**
-     * 创建日期
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * 创建日期
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * 修改日期
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * 修改日期
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public List<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<String> permissions) {
-        this.permissions = permissions;
+    public boolean isSuperAdmin() {
+        return isSuperAdmin(this.id);
     }
 }

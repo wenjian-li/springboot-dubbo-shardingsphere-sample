@@ -1,0 +1,33 @@
+.layui-input{
+    width: 200px;
+}
+.layui-table, .layui-table-view {
+    margin: 0px;
+}
+
+label.required:after {
+    content: "*";
+    color: red;
+}
+
+.layui-inline {
+    margin: 5px 0;
+}
+
+#search {
+    margin: 0 30px;
+}
+
+.layui-table img {
+    max-width: 320px;
+    width: 320px;
+    height: 32px;
+}
+/**搜索框**/
+form {
+    padding: 5px 0px;
+}
+/****/
+.layui-bg-gray {
+    padding: 10px;
+}

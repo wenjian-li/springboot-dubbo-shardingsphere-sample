@@ -15,6 +15,7 @@ import java.util.List;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         implements IMenuService {
 
+
     @Override
     public List<Menu> selectByRoleId(Integer roleId) {
         return baseMapper.selectByRoleId(roleId);
@@ -23,6 +24,16 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
     @Override
     public List<String> selectPermissionsByRoleId(Integer roleId) {
         return baseMapper.selectPermissionsByRoleId(roleId);
+    }
+
+    @Override
+    public List<Menu> selectByUserId(Long userId) {
+        return baseMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public List<String> selectSuperAdminPermissions() {
+        return baseMapper.selectSuperAdminPermissions();
     }
 }
 

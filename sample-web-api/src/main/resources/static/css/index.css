@@ -1,0 +1,43 @@
+
+.layui-layout-admin .layui-logo{
+    font-size: 26px;
+    font-weight: bold;
+    width: auto;
+}
+.layui-nav-item>a{
+    font-weight: bold;
+    font-size: 15px;
+}
+.layui-tab {
+    margin-top: 0px;
+    height: 90%;
+}
+.layui-tab-refresh{
+    width: 40px;
+    top: 0;
+    right: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.layui-tab-content {
+    height: 98%;
+    padding: 0px;
+}
+
+.layui-tab-item {
+    height: 100%;
+}
+
+
+.layui-nav-child dd {
+    padding-left: 10px;
+}
+
+.layui-form-item {
+    margin: 15px;
+}
+label.required:after {
+    content: "*" ;
+    color: red;
+}

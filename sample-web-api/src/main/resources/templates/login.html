@@ -2,10 +2,89 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{login.title}">Title</title>
+    <title th:text="#{login.title}"></title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.min.css}">
 </head>
+
 <body>
-<div th:text="#{login.username}"></div>
-<div th:text="#{login.password}"></div>
+<div class="loginBox">
+    <form class="layui-form" action="" lay-filter="loginForm"  id="loginForm" method="post">
+        <h1 th:text="#{system.name}">管理系统</h1>
+        <div class="item">
+            <div class="icon"><img src="./images/login/icon1.png"></i></div>
+            <div class="txt"><input name="userAccount" type="text" placeholder="请输入您的用户名" lay-verify="required" autofocus="autofocus" maxlength="20"></div>
+        </div>
+        <div class="item">
+            <div class="icon"><img src="./images/login/icon2.png"></i></div>
+            <div class="txt"><input name="password" type="password" placeholder="请输入您的密码" lay-verify="required" maxlength="20"></div>
+        </div>
+        <div class="item">
+            <div class="icon"><img src="./images/login/icon3.png"/></div>
+            <div class="captcha-input"><input id="captcha" name="captcha" type="text" placeholder="请输入验证码" lay-verify="required" maxlength="4"></div>
+            <div class="captcha"><img id="captchaImage" class="captchaImage" src="./captcha.jpg"
+                                      th:title="#{login.captcha.title}"/></div>
+        </div>
+        <div class="item_3">
+            <input name="confirmBtn" type="submit" class="btn" lay-submit lay-filter="confirmBtn"
+                   th:value="#{login.login.button}">
+        </div>
+    </form>
+</div>
+
+<script src="layui/layui.js"></script>
+<script>
+    //规避会话超时点击菜单后子iframe会展示登录页面问题
+    if (window != top) {
+        top.location.href = location.href;
+    }
+
+
+    layui.use(['element',  'form'], function () {
+        var element = layui.element
+            , $ = layui.$
+            , form = layui.form;
+
+
+        // 更换验证码
+        $("#captchaImage").click(
+            function () {
+                $("#captchaImage").attr("src", "./captcha.jpg?t=" + (new Date()).valueOf());
+            });
+
+        /**回车**/
+        $("#captcha").keydown(function (e) {
+            if (e.keyCode == 13) {
+                $("#submit").click();
+            }
+        });
+
+        //表单提交按钮
+        form.on('submit(confirmBtn)', function (data) {
+            //用户状态
+            $.ajax({
+                type: "POST",
+                url: "./login",
+                data: $("#loginForm").serialize(),
+                dataType: "json",
+                cache: false,
+                success: function (result) {
+                    if (result.code == 0) {
+                        //alert("登录成功！");
+                        parent.location.href = "../";
+                    } else {
+                        layer.msg(result.msg, {icon: 5});
+                        $("input[name=captcha]").val("");
+                        $("#captchaImage").attr("src", "./captcha.jpg?t=" + (new Date()).valueOf());
+                    }
+                }
+            });
+            return false;
+        });
+
+
+    });
+</script>
 </body>
 </html>

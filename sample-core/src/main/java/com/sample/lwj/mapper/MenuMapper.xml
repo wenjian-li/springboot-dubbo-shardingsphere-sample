@@ -41,4 +41,27 @@
                  left join t_role_menu b on a.id = b.menu_id
         where b.role_id = #{roleId,javaType=INTEGER}
     </select>
+    <select id="selectSuperAdminPermissions" resultType="java.lang.String">
+        select a.PERMISSION
+        from T_MENU a
+                 left join T_ROLE_MENU b on a.ID = b.MENU_ID
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select a.ID,
+               a.PID,
+               a.NAME,
+               a.URL,
+               a.PERMISSION,
+               a.TYPE,
+               a.SORT,
+               a.CREATE_TIME,
+               a.UPDATE_TIME
+        from T_MENU a
+                 left join T_ROLE_MENU b on a.ID = b.MENU_ID
+                 left join T_USER c on c.ROLE_ID = b.ROLE_ID
+        where c.ID = #{userId,javaType=Long}
+        order by a.SORT
+    </select>
+
+
 </mapper>

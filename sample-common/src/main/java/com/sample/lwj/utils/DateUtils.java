@@ -6,6 +6,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.lang.management.ManagementFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,11 +32,11 @@ public class DateUtils {
     /**
      * 时间格式(yyyy-MM-dd)
      */
-    public final static String DATE_PATTERN = "yyyy-MM-dd";
+    public final static String YYYY_MM_DD = "yyyy-MM-dd";
     /**
      * 时间格式(yyyy-MM-dd HH:mm:ss)
      */
-    public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public final static String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * 日期格式化 日期格式为：yyyy-MM-dd
@@ -44,7 +45,7 @@ public class DateUtils {
      * @return 返回yyyy-MM-dd格式日期
      */
     public static String format(Date date) {
-        return format(date, DATE_PATTERN);
+        return format(date, YYYY_MM_DD);
     }
 
     /**
@@ -56,8 +57,7 @@ public class DateUtils {
      */
     public static String format(Date date, String pattern) {
         if (date != null) {
-            SimpleDateFormat df = new SimpleDateFormat(pattern);
-            return df.format(date);
+            return new SimpleDateFormat(pattern).format(date);
         }
         return null;
     }
@@ -75,6 +75,32 @@ public class DateUtils {
 
         DateTimeFormatter fmt = DateTimeFormat.forPattern(pattern);
         return fmt.parseLocalDateTime(strDate).toDate();
+    }
+
+    /**
+     * 获取日期最小时间
+     *
+     * @param yearMonthDay 日期字符串(格式：2021-01-01)
+     */
+    public static Date getDayMinTime(String yearMonthDay) {
+        if (yearMonthDay == null || "".equals(yearMonthDay.trim())) {
+            return null;
+        }
+        String[] yearMonthDayArr = yearMonthDay.split("-");
+        return DateTime.now().withYear(Integer.valueOf(yearMonthDayArr[0])).withMonthOfYear(Integer.valueOf(yearMonthDayArr[1])).withDayOfMonth(Integer.valueOf(yearMonthDayArr[2])).withTimeAtStartOfDay().toDate();
+    }
+
+    /**
+     * 获取日期最大时间
+     *
+     * @param yearMonthDay 日期字符串(格式：2021-01-01)
+     */
+    public static Date getDayMaxTime(String yearMonthDay) {
+        if (yearMonthDay == null || "".equals(yearMonthDay.trim())) {
+            return null;
+        }
+        String[] yearMonthDayArr = yearMonthDay.split("-");
+        return DateTime.now().withYear(Integer.valueOf(yearMonthDayArr[0])).withMonthOfYear(Integer.valueOf(yearMonthDayArr[1])).withDayOfMonth(Integer.valueOf(yearMonthDayArr[2])).millisOfDay().withMaximumValue().toDate();
     }
 
     /**
@@ -298,5 +324,43 @@ public class DateUtils {
     public static Date addDateYears(Date date, int years) {
         DateTime dateTime = new DateTime(date);
         return dateTime.plusYears(years).toDate();
+    }
+
+    /**
+     * 获取当前Date型日期
+     *
+     * @return Date() 当前日期
+     */
+    public static Date getNowDate() {
+        return new Date();
+    }
+
+    /**
+     * 获取服务器启动时间
+     */
+    public static Date getServerStartDate() {
+        long time = ManagementFactory.getRuntimeMXBean().getStartTime();
+        return new Date(time);
+    }
+
+    /**
+     * 计算两个时间差
+     */
+    public static String getDatePoor(Date nowDate, Date endDate) {
+        long nd = 1000 * 24 * 60 * 60;
+        long nh = 1000 * 60 * 60;
+        long nm = 1000 * 60;
+        // long ns = 1000;
+        // 获得两个时间的毫秒时间差异
+        long diff = endDate.getTime() - nowDate.getTime();
+        // 计算差多少天
+        long day = diff / nd;
+        // 计算差多少小时
+        long hour = diff % nd / nh;
+        // 计算差多少分钟
+        long min = diff % nd % nh / nm;
+        // 计算差多少秒//输出结果
+        // long sec = diff % nd % nh % nm / ns;
+        return day + "天" + hour + "小时" + min + "分钟";
     }
 }

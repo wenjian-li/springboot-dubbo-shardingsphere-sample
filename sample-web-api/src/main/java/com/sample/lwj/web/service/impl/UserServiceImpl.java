@@ -17,6 +17,7 @@ import org.springframework.util.DigestUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service(value = "userService")
 public class UserServiceImpl implements IUserService {
@@ -59,7 +60,7 @@ public class UserServiceImpl implements IUserService {
         if (!validate) {
             throw new BizException("账号或密码错误");
         }
-        List<String> permissions = menuServiceRemote.selectPermissionsByRoleId(userDTO.getRoleId());
+        Set<String> permissions = menuServiceRemote.selectPermissionsByRoleId(userDTO.getRoleId());
         userDTO.setPermissions(permissions);
         return tokenService.createToken(userDTO);
     }

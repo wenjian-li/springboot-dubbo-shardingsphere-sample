@@ -44,6 +44,13 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- thymeleaf整合shiro标签 -->
+        <dependency>
+            <groupId>com.github.theborakompanioni</groupId>
+            <artifactId>thymeleaf-extras-shiro</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
         <dependency>
@@ -74,6 +81,23 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/com.github.penggle/kaptcha -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.github.oshi/oshi-core -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>5.8.0</version>
+        </dependency>
+
+
+
 
         <dependency>
             <groupId>com.sample.lwj</groupId>
@@ -94,6 +118,20 @@
     <build>
         <finalName>sample-web-api</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>svg</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -130,8 +168,22 @@
                     <include>application-${environment}.yml</include>
                     <include>i18n/**</include>
                     <include>templates/**</include>
+                    <include>static/**</include>
                     <include>*.xml</include>
                     <include>*.properties</include>
+                </includes>
+            </resource>
+            <!--解决layui图标不显示问题-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.css</include>
+                    <include>**/*.eot</include>
+                    <include>**/*.svg</include>
+                    <include>**/*.woff</include>
+                    <include>**/*.woff2</include>
+                    <include>**/*.ttf</include>
                 </includes>
             </resource>
         </resources>

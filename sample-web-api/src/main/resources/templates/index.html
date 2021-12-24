@@ -1,10 +1,283 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="#{index.title}">Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title th:text="#{home.title}">Title</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/index.css" media="all">
 </head>
-<body>
-<div th:text="#{index.text}"></div>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo" th:text="#{system.name}"></div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <!--<ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item"><a href="">控制台</a></li>
+          <li class="layui-nav-item"><a href="">商品管理</a></li>
+          <li class="layui-nav-item"><a href="">用户</a></li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">其它系统</a>
+            <dl class="layui-nav-child">
+              <dd><a href="">邮件管理</a></dd>
+              <dd><a href="">消息管理</a></dd>
+              <dd><a href="">授权管理</a></dd>
+            </dl>
+          </li>
+        </ul>-->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <div class="layui-tab-refresh" title="刷新当前选项卡" th:title="#{index.refresh}"><i class="fa fa-refresh"></i></div>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <shiro:principal property="username"/>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a id="modifyUserPwdBtn" href="javascript:;" th:text="#{index.update.password}">修改密码</a></dd>
+                    <dd><a href="/logout" th:text="#{index.logout}">退出</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="left-menu">
+
+
+                <li th:each="menu,mStat : ${navTrees}" class="layui-nav-item ">
+                    <a th:class="${#lists.isEmpty(menu.subList)} ? 'menu-active':'' " data-type="tabAdd"
+                       th:data-url="${menu.url}" th:lay-id="${menu.id}" href="javascript:;">
+                        <i th:class="${menu.icon}"></i>
+                        <span th:text="${menu.name}">一级菜单</span>
+
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd th:each="sub : ${menu.subList}">
+                            <a th:class="${#lists.isEmpty(sub.subList)} ? 'menu-active':'' " data-type="tabAdd"
+                               th:data-url="${sub.url}" th:lay-id="${sub.id}" href="javascript:;" >
+                                <i th:class="${sub.icon}"></i>
+                                <span th:text="${sub.name}">二级菜单</span>
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-brief" lay-filter="menu-tab" lay-allowClose="true">
+            <!---1、tab项-->
+            <ul class="layui-tab-title">
+                <!---layui.js修改源码，指定layui-tab-disable-close样式的tab不允许关闭 --->
+                <li class="layui-this layui-tab-disable-close" th:text="#{index.title}"></li>
+            </ul>
+            <!---2、tab内容-->
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe frameborder="0" width="100%" height="110%" src="/server"></iframe>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--修改密码-->
+    <form id="modifyPwdForm" class="layui-form modify-pwd" lay-filter="example" style="display: none">
+        <div class="layui-form-item">
+            <label class="layui-form-label" th:text="#{index.login.username}">登录名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="title" autocomplete="off" class="layui-input layui-disabled" disabled th:value="${loginUser.username}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required" th:text="#{index.old.password}">原密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="oldPassword" autocomplete="off" lay-verify="required|pass"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required" th:text="#{index.new.password}">新密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="newPassword" autocomplete="off" lay-verify="required|pass"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required" th:text="#{index.confirm.password}">再次确认</label>
+            <div class="layui-input-inline">
+                <input type="password" name="confirmPassword" autocomplete="off"
+                       lay-verify="required|pass|confirmPassword" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="submit" type="submit" lay-submit lay-filter="resetPwdBtn" class="layui-btn" th:text="#{confirm.button.title}">确定</button>
+                <button id="close" type="button" class="layui-btn layui-btn-primary" th:text="#{close.button.title}">关闭</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="layui-footer" th:text="#{copyright.company.name}">
+        <!-- 底部固定区域 -->
+        底部固定区域
+    </div>
+</div>
+<script src="layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['element', 'layer', 'util', 'form'], function () {
+        var element = layui.element
+            , layer = layui.layer
+            , util = layui.util
+            , $ = layui.$
+            , form = layui.form;
+
+
+        //触发事件
+        var active = {
+            tabAdd: function (othis) {
+                var tabId = othis.attr('lay-id');
+                var isExist = active.isExist(tabId, true);
+                var url = othis.data('url');
+                //url为空则返回
+                if (url == '' || url == '#') {
+                    return;
+                }
+                if (!isExist) {
+                    //新增一个Tab项
+                    element.tabAdd('menu-tab', {
+                        title: othis.text()//用于演示
+                        , content: '<iframe frameborder="0" width="100%" height="110%" src="' + url + '"></iframe>'
+                        , id: tabId //实际使用一般是规定好的id，这里以时间戳模拟下
+                    })
+                }
+                //切换到指定Tab项
+                active.tabChange(othis); //切换到：用户管理
+            }
+            , tabDelete: function (othis) {
+                //删除指定Tab项
+                element.tabDelete('menu-tab', othis.attr('lay-id'));
+
+
+                // othis.addClass('layui-btn-disabled');
+            }
+            , tabChange: function (othis) {
+                //切换到指定Tab项
+                element.tabChange('menu-tab', othis.attr('lay-id'));
+            },
+            /**
+             * 判断tab窗口是否存在
+             */
+            isExist: function (tabId, isIframe) {
+                // 判断选项卡上是否有
+                var checkTab = false;
+                if (isIframe === undefined || isIframe === false) {
+                    $(".layui-tab-title li").each(function () {
+                        var checkTabId = $(this).attr('lay-id');
+                        if (checkTabId != null && checkTabId === tabId) {
+                            checkTab = true;
+                        }
+                    });
+                } else {
+                    parent.layui.$(".layui-tab-title li").each(function () {
+                        var checkTabId = $(this).attr('lay-id');
+                        if (checkTabId != null && checkTabId === tabId) {
+                            checkTab = true;
+                        }
+                    });
+                }
+                return checkTab;
+            }
+        };
+
+        //菜单点击
+        $('.menu-active').on('click', function () {
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+        //刷新按钮
+        $('.layui-tab-refresh').on('click', function () {
+            var iframe = $(".layui-show").children("iframe");
+            iframe.attr("src",iframe.attr("src"));
+        });
+
+
+
+        //tab点击
+        element.on('tab(menu-tab)', function (data) {
+            var layId = this.getAttribute('lay-id');
+            $(".layui-nav dd").filter(".layui-this").removeClass("layui-this");
+            $(".layui-nav dd a").each(function () {
+                var checkTabId = $(this).attr('lay-id');
+                if (checkTabId != null && checkTabId === layId) {
+                    $(this).parent("dd").addClass("layui-this");
+                }
+            });
+
+        });
+
+        //用户中心-修改密码（弹出层）
+        $("#modifyUserPwdBtn").on("click", function () {
+            layer.open({
+                type: 1
+                , title: '[[#{index.update.password}]]'
+                , offset: 'auto' //具体配置参考：http://www.layuion.com/doc/modules/layer.html#offset
+                , id: 'modifyPwdLayer' //防止重复弹出
+                , content: $('.modify-pwd')
+                , area: ['400px', '350px']
+                , btnAlign: 'c' //按钮居中
+            });
+        });
+
+        //表单自定义验证规则
+        form.verify({
+            confirmPassword: function (value) {
+                if ($('input[name=newPassword]').val() !== value)
+                    return '两次密码输入不一致！';
+            },
+            pass: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+        });
+
+        //表单关闭按钮
+        $("#close").on("click", function () {
+            layer.closeAll();
+            $("#modifyPwdForm")[0].reset();
+        });
+
+        //表单提交按钮
+        form.on('submit(resetPwdBtn)', function (data) {
+            $.post("/user/resetLoginUserPassword", data.field, function (result) {
+                if(result.code == 0){
+                    layer.msg(result.msg, {icon: 1}, function () {
+                        layer.closeAll();
+                        $("#modifyPwdForm")[0].reset();
+                    });
+                }else{
+                    layer.msg(result.msg, {icon: 5});
+                }
+            });
+            return false;
+        });
+
+    });
+
+
+</script>
+
 </body>
 </html>

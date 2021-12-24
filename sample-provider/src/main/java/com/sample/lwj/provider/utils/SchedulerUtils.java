@@ -2,7 +2,7 @@ package com.sample.lwj.provider.utils;
 
 import com.sample.lwj.entity.ScheduleJob;
 import com.sample.lwj.exception.BizException;
-import com.sample.lwj.provider.constant.Constant;
+import com.sample.lwj.provider.constant.Constants;
 import org.quartz.*;
 
 /**
@@ -61,7 +61,7 @@ public class SchedulerUtils {
             scheduler.scheduleJob(jobDetail, trigger);
 
             //暂停任务
-            if(scheduleJob.getStatus() == Constant.ScheduleStatus.PAUSE.getValue()){
+            if(scheduleJob.getStatus() == Constants.ScheduleStatus.PAUSE.getValue()){
                 pauseJob(scheduler, scheduleJob.getJobId());
             }
         } catch (SchedulerException e) {
@@ -91,7 +91,7 @@ public class SchedulerUtils {
             scheduler.rescheduleJob(triggerKey, trigger);
 
             //暂停任务
-            if(scheduleJob.getStatus() == Constant.ScheduleStatus.PAUSE.getValue()){
+            if(scheduleJob.getStatus() == Constants.ScheduleStatus.PAUSE.getValue()){
                 pauseJob(scheduler, scheduleJob.getJobId());
             }
 
