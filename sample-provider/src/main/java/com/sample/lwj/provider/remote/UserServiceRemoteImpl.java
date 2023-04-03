@@ -1,6 +1,7 @@
 package com.sample.lwj.provider.remote;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sample.lwj.entity.User;
@@ -71,5 +72,10 @@ public class UserServiceRemoteImpl implements IUserServiceRemote {
                         .ge(pageUtils.getParams().getSearchStartTime() != null, "CREATE_TIME", pageUtils.getParams().getSearchStartTime())
                         .le(pageUtils.getParams().getSearchEndTime() != null, "CREATE_TIME", pageUtils.getParams().getSearchEndTime()));
         return new PageUtils<>(BeanUtils.toList(page.getRecords(), UserDTO.class), page.getCurrent(), page.getSize(), page.getTotal(), page.getPages());
+    }
+
+    @Override
+    public UserDTO selectByUserAccount(String username) {
+        return BeanUtils.toBean(userService.getOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username), false), UserDTO.class);
     }
 }

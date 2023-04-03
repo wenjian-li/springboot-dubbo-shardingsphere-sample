@@ -19,3 +19,9 @@ spring:
     mode: HTML #严格的HTML语法模式
     suffix: .html #后缀名
     check-template: true
+config:
+  cluster: false  #集群配置  true集群环境   false单机环境，还需打开pom.xml里的spring-session-data-redis注释
+  globalSessionTimeout: 3600   #单机环境，session过期时间为60分钟
+  cookieMaxAge: 30 #记住我cookie有效天数，默认7天
+  redis:
+    open: false  #是否开启redis缓存  true开启   false关闭

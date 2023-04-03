@@ -8,12 +8,13 @@
     <fileSets>
         <fileSet>
             <directory>src/main/resources/bin</directory>
-            <outputDirectory>/bin</outputDirectory>
+            <outputDirectory>/</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>src/main/resources</directory>
             <includes>
-                <include>logback.xml</include>
+                <!--打包时配置文件移至包外（这里将配置文件放置压缩包根目录，即jar包同级目录），项目优先读取包外配置文件-->
+                <include>application-${environment}.yml</include>
             </includes>
             <filtered>true</filtered>
             <outputDirectory>/</outputDirectory>

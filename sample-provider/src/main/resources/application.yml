@@ -14,5 +14,6 @@ mybatis-plus:
       table-prefix: t_
       table-underline: true
       id-type: auto
-
+  configuration:
+    cache-enabled: true
 

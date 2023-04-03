@@ -5,3 +5,7 @@ spring:
     active: @environment@
   application:
     name: sample-web-api
+  mvc:
+    pathmatch:
+      #解决 Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
+      matching-strategy: ant_path_matcher

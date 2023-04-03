@@ -25,4 +25,5 @@ public interface IUserServiceRemote {
 
     PageUtils<UserDTO> selectByPage(PageUtils<CommonParamDTO> pageUtils);
 
+    UserDTO selectByUserAccount(String username);
 }

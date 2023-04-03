@@ -25,7 +25,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobMapper, Sched
 
 
     @Autowired
-    @Qualifier("scheduler")
+//    @Qualifier("scheduler")
     private Scheduler scheduler;
 
     /**

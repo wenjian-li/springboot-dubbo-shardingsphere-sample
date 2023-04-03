@@ -21,4 +21,20 @@ public class Constants {
      * https请求
      */
     public static final String HTTPS = "https://";
+
+    /**
+     * 英文逗号分隔符
+     */
+    public static final String COMMA_SPLIT = ",";
+
+
+    /**
+     * 常量0
+     */
+    public static final Long ZERO = 0L;
+
+    /**
+     * 常量1
+     */
+    public static final Long ONE = 1L;
 }

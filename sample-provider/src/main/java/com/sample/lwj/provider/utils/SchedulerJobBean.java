@@ -4,8 +4,10 @@ import com.sample.lwj.entity.ScheduleJob;
 import com.sample.lwj.entity.ScheduleJobLog;
 import com.sample.lwj.provider.service.IScheduleJobLogService;
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.PersistJobDataAfterExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.QuartzJobBean;
@@ -18,11 +20,14 @@ import java.util.Date;
  * @version 1.0.0
  * @Description: 定时任务
  * @date 2021/8/29 15:57
+ * @PersistJobDataAfterExecution: 告诉Quartz在成功执行了Job实现类的execute方法后（没有发生任何异常），更新JobDetail中JobDataMap的数据，使得该JobDetail实例在下一次执行的时候，JobDataMap中是更新后的数据，而不是更新前的旧数据。
+ * @DisallowConcurrentExecution: 告诉Quartz不要并发地执行同一个JobDetail实例。
  */
+@PersistJobDataAfterExecution
+@DisallowConcurrentExecution
 public class SchedulerJobBean extends QuartzJobBean {
 
     private Logger logger = LoggerFactory.getLogger(SchedulerJobBean.class);
-
 
 
     @Override
@@ -36,6 +41,7 @@ public class SchedulerJobBean extends QuartzJobBean {
         //数据库保存执行记录
         ScheduleJobLog log = new ScheduleJobLog();
         log.setJobId(scheduleJob.getJobId());
+//        log.setName(scheduleJob.getName());
         log.setBeanName(scheduleJob.getBeanName());
         log.setParams(scheduleJob.getParams());
         log.setCreateTime(new Date());

@@ -20,6 +20,11 @@ public class UserDTO implements Serializable {
     public static final long SUPER_ADMIN_ID = 1;
 
     /**
+     * 超级管理员角色ID
+     */
+    public static final long SUPER_ADMIN_ROLE_ID = 1;
+
+    /**
      * 主键
      */
     @JsonSerialize(using = ToStringSerializer.class)
@@ -75,5 +80,24 @@ public class UserDTO implements Serializable {
      */
     public boolean isSuperAdmin() {
         return isSuperAdmin(this.id);
+    }
+
+    /**
+     * 是否为超级管理员角色
+     *
+     * @param roleId 角色ID
+     * @return 校验结果
+     */
+    public static boolean isSuperAdminRole(Integer roleId) {
+        return roleId != null && roleId == UserDTO.SUPER_ADMIN_ROLE_ID;
+    }
+
+    /**
+     * 是否为超级管理员角色
+     *
+     * @return 校验结果
+     */
+    public boolean isSuperAdminRole() {
+        return isSuperAdminRole(this.roleId);
     }
 }
