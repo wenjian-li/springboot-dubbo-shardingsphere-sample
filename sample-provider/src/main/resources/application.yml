@@ -5,6 +5,19 @@ spring:
     active: @environment@
   application:
     name: sample-provider
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    #ShardingSphere5.3.1版本目前问题：
+    #1、ShardingSphere配置文件移至jar包外，idea工具无法启动项目，但打好的zip包解压运行没问题
+    #2、ShardingSphere配置文件在jar包内，idea工具可以启动项目，打好的zip包解压运行没问题（现阶段配置文件无法移至包外）
+    #jar包外配置文件示例
+    #url: jdbc:shardingsphere:./shardingsphere-@environment@.yml
+    #jar包内配置文件示例
+    url: jdbc:shardingsphere:classpath:shardingsphere-@environment@.yml
+
 #Mybatis-Plus
 mybatis-plus:
   type-aliases-package: com.sample.lwj.entity
