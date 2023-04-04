@@ -1,7 +1,7 @@
 # springboot-dubbo-shardingsphere-sample
 Springboot 2.4.10 <br/>
 Dubbo 2.7.12 <br/>
-ShardingSphere-Jdbc 5.0.0-alpha <br/>
+ShardingSphere-Jdbc 5.2.1 <br/>
 Mybatis-Plus 3.4.3.1 <br/>
 Quartz 2.3.2 <br/>
 Swagger-UI（knife4j）<br/>
